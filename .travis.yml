@@ -1,0 +1,8 @@
+language: node_js
+deploy:
+    provider: pages
+    skip-cleanup: true
+    github-token: 3e041a57f32ccd665e73a75fc1bd364ee014ae47  # Set in travis-ci.org dashboard, marked secure
+    keep-history: true
+    on:
+        branch: master
