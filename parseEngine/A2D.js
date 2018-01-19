@@ -2,6 +2,7 @@ var fs = require('fs');
 const util = require('util');
 
 var aagFile  = process.argv[2];
+var font = `fontname=\"Courier\"`;
 
 function splitLine(input){
   return input.split(/\r?\n/)
@@ -38,14 +39,14 @@ function convertToDot(gateList){
   
   //const
   digraph += `{\n`;
-  digraph += `node [color=pink;shape=box;];\n `;
+  digraph += `node [color=pink;shape=box;` + font + `];\n `;
   digraph += `0;\n`;
   digraph += `}\n`;
 
   //pi
   digraph += `{\n`;
   digraph += `rank = same;\n`;
-  digraph += `node [color=red;shape=box];\n`;
+  digraph += `node [color="#8a0918";shape=box;` + font + `];\n`;
   let hasPI = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'PI'){
@@ -61,7 +62,7 @@ function convertToDot(gateList){
   //po
   digraph += `{\n`;
   digraph += `rank = same;\n`;
-  digraph += `node [color=blue;shape=box];\n`;
+  digraph += `node [color="#accfcc";shape=box;` + font + `];\n`;
   let hasPO = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'PO'){
@@ -76,7 +77,7 @@ function convertToDot(gateList){
 
   //aig
   digraph += `{\n`;
-  digraph += `node [color=black;shape=invtrapezium];\n`;
+  digraph += `node [color="#5a5241";shape=invtrapezium;` + font + `];\n`;
   let hasAIG = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'AIG'){
@@ -90,7 +91,7 @@ function convertToDot(gateList){
   digraph += `}\n`;
 
   //undef
-  digraph += `node [color=green;shape=box];\n`;
+  digraph += `node [color="#468a66";shape=box;` + font + `];\n`;
   //start linking
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].fanin != undefined){
@@ -100,8 +101,8 @@ function convertToDot(gateList){
         link += gateList[i].fanin[j].id;
         link += `->`;
         link += gateList[i].id;
-        if(gateList[i].fanin[j].inv === 0) link += ` [arrowhead=none];\n`
-        else link += ` [arrowhead=odot];\n`
+        if(gateList[i].fanin[j].inv === 0) link += ` [color="#5a5241";arrowhead=none];\n`
+        else link += ` [color="#5a5241";arrowhead=odot];\n`
       }
       digraph += link;
     }
