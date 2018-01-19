@@ -28,3 +28,10 @@ function handleFileSelected(event) {
 };
 
 document.getElementById('btn').addEventListener('click', handleFileSelected);
+
+
+document.getElementById("image").innerHTML = image;
+
+// var digraph = ``;
+// const image = Viz(digraph, { format: "png-img-element" });
+// document.getElementById("image").appendChild(image);
