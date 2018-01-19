@@ -33,19 +33,19 @@ function splitLine(input){
 // }
 // `
 function convertToDot(gateList){
-  let digraph = `digraph G {`;
+  let digraph = `digraph G {\n`;
   //set layout
   
   //const
-  digraph += `{`;
-  digraph += `node [color=pink;shape=box;]; `;
-  digraph += `0;`;
-  digraph += `}`;
+  digraph += `{\n`;
+  digraph += `node [color=pink;shape=box;];\n `;
+  digraph += `0;\n`;
+  digraph += `}\n`;
 
   //pi
-  digraph += `{`;
-  digraph += `rank = same;`;
-  digraph += `node [color=red;shape=box];`;
+  digraph += `{\n`;
+  digraph += `rank = same;\n`;
+  digraph += `node [color=red;shape=box];\n`;
   let hasPI = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'PI'){
@@ -55,13 +55,13 @@ function convertToDot(gateList){
   }
   if(hasPI === 1)
     digraph = digraph.slice(0, -1); // delete last comma
-  digraph += `;`;
-  digraph += `}`;
+  digraph += `;\n`;
+  digraph += `}\n`;
 
   //po
-  digraph += `{`;
-  digraph += `rank = same;`;
-  digraph += `node [color=blue;shape=box];`;
+  digraph += `{\n`;
+  digraph += `rank = same;\n`;
+  digraph += `node [color=blue;shape=box];\n`;
   let hasPO = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'PO'){
@@ -71,12 +71,12 @@ function convertToDot(gateList){
   }
   if(hasPO === 1)
     digraph = digraph.slice(0, -1); // delete last comma
-  digraph += `;`;
-  digraph += `}`;
+  digraph += `;\n`;
+  digraph += `}\n`;
 
   //aig
-  digraph += `{`;
-  digraph += `node [color=black;shape=invtrapezium];`;
+  digraph += `{\n`;
+  digraph += `node [color=black;shape=invtrapezium];\n`;
   let hasAIG = 0;
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].type === 'AIG'){
@@ -86,11 +86,11 @@ function convertToDot(gateList){
   }
   if(hasAIG === 1)
     digraph = digraph.slice(0, -1); // delete last comma
-  digraph += `;`;
-  digraph += `}`;
+  digraph += `;\n`;
+  digraph += `}\n`;
 
   //undef
-  digraph += `node [color=green;shape=box];`;
+  digraph += `node [color=green;shape=box];\n`;
   //start linking
   for(let i = 0; i < gateList.length; i++){
     if(gateList[i].fanin != undefined){
@@ -100,14 +100,14 @@ function convertToDot(gateList){
         link += gateList[i].fanin[j].id;
         link += `->`;
         link += gateList[i].id;
-        if(gateList[i].fanin[j].inv === 0) link += ` [arrowhead=none];`
-        else link += ` [arrowhead=odot];`
+        if(gateList[i].fanin[j].inv === 0) link += ` [arrowhead=none];\n`
+        else link += ` [arrowhead=odot];\n`
       }
       digraph += link;
     }
   }
 
-  digraph += `}`;
+  digraph += `}\n`;
 
   fs.writeFile(process.argv[3],digraph,()=>{});
   // console.log(digraph);
